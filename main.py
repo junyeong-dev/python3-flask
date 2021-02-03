@@ -17,6 +17,6 @@ def name(name):
 @app.route("/report")
 def report():
     keyword = request.args.get('keyword')
-    return f"Keyword is {keyword}"
+    return render_template("report.html", keyword=keyword, test="flask")
 
 app.run()
