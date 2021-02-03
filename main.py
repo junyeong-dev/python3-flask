@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask("Flask")
 
@@ -13,5 +13,10 @@ def home():
 @app.route("/<name>")
 def name(name):
     return f"Your name is {name}"
+
+@app.route("/report")
+def report():
+    keyword = request.args.get('keyword')
+    return f"Keyword is {keyword}"
 
 app.run()
