@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask("Flask")
 
@@ -17,6 +17,10 @@ def name(name):
 @app.route("/report")
 def report():
     keyword = request.args.get('keyword')
+    if keyword:
+        keyword = keyword.lower()
+    else:
+        return redirect("/")
     return render_template("report.html", keyword=keyword, test="flask")
 
 app.run()
