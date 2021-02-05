@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+from scrapper import get_jobs
 
 app = Flask("Flask")
 
@@ -19,6 +20,8 @@ def report():
     keyword = request.args.get('keyword')
     if keyword:
         keyword = keyword.lower()
+        jobs = get_jobs(keyword)
+        print(jobs)
     else:
         return redirect("/")
     return render_template("report.html", keyword=keyword, test="flask")
