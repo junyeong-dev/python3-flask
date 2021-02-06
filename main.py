@@ -3,6 +3,8 @@ from scrapper import get_jobs
 
 app = Flask("Flask")
 
+db = {}
+
 # @ : decorator로서 바로 아래에 있는 함수를 찾음
 @app.route("/")
 def home():
@@ -20,8 +22,12 @@ def report():
     keyword = request.args.get('keyword')
     if keyword:
         keyword = keyword.lower()
-        jobs = get_jobs(keyword)
-        print(jobs)
+        fromDb = db.get(keyword)
+        if fromDb:
+            jobs =fromDb
+        else:
+            jobs = get_jobs(keyword)
+            db[keyword] = jobs
     else:
         return redirect("/")
     return render_template("report.html", keyword=keyword, test="flask")
