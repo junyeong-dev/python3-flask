@@ -30,6 +30,10 @@ def report():
             db[keyword] = jobs
     else:
         return redirect("/")
-    return render_template("report.html", keyword=keyword, test="flask")
+    return render_template(
+        "report.html",
+        keyword=keyword,
+        resultsNumber=len(jobs),
+        test="flask")
 
 app.run()
