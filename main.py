@@ -22,18 +22,21 @@ def report():
     keyword = request.args.get('keyword')
     if keyword:
         keyword = keyword.lower()
-        fromDb = db.get(keyword)
-        if fromDb:
-            jobs =fromDb
+        existingJobs = db.get(keyword)
+        if existingJobs:
+            jobs =existingJobs
         else:
             jobs = get_jobs(keyword)
             db[keyword] = jobs
     else:
         return redirect("/")
+
+    # flask에선{% %}을 통해 html에서 python코드를 사용할 수 있음
     return render_template(
         "report.html",
         keyword=keyword,
         resultsNumber=len(jobs),
-        test="flask")
+        jobs=jobs
+    )
 
 app.run()
