@@ -39,4 +39,19 @@ def report():
         jobs=jobs
     )
 
+@app.route("/export")
+def export():
+    try:
+        keyword = request.args.get('keyword')
+        if not keyword:
+            # keyword가 존재하지 않으면 Exception을 발생시킴
+            raise Exception()
+        keyword = keyword.lower()
+        jobs = db.get(keyword)
+        if not jobs:
+            raise Exception()
+        return f"Export CSV for{keyword}"
+    except:
+        return redirect("/")
+
 app.run()
