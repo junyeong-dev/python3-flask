@@ -25,7 +25,7 @@ def report():
         keyword = keyword.lower()
         existingJobs = db.get(keyword)
         if existingJobs:
-            jobs =existingJobs
+            jobs = existingJobs
         else:
             jobs = get_jobs(keyword)
             db[keyword] = jobs
@@ -50,6 +50,7 @@ def export():
         keyword = keyword.lower()
         jobs = db.get(keyword)
         if not jobs:
+            # 해당하는 jobs가 존재하지 않으면 Exception을 발생시킴
             raise Exception()
         save_to_file(jobs)
         return send_file("jobs.csv")
